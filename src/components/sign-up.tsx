@@ -97,8 +97,11 @@ export default function SignUp() {
         onRequest: () => {
           setLoading(true);
         },
-        onError: () => {
-          toast.error("Erro ao criar conta");
+        onError: (ctx) => {
+          toast.error(
+            ctx.error.message === "User already exists. Use another email." &&
+              "Email já cadastrado!"
+          );
           setLoading(false);
         },
         onSuccess: async () => {

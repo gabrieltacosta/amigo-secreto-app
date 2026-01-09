@@ -61,7 +61,7 @@ export default function SignIn() {
         onSuccess: () => {
           setLoading(false);
           toast.success("Login realizado com sucesso!");
-          router.push("/dashboard/groups");
+          router.push("/dashboard");
         },
         onError: () => {
           setLoading(false);
