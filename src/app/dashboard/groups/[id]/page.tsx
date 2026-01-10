@@ -5,26 +5,36 @@ import {
 } from "@/components/ui/text-reveal-card";
 import prisma from "@/lib/prisma";
 
-export default async function GroupsPage({
+export default async function GroupPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const group = await prisma.group.findMany({
+  const groupId = (await params).id;
+
+  const group = await prisma.group.findUnique({
     where: {
-      id: params.id,
-    },
-    include: {
-      participants: true,
+      id: groupId,
     },
   });
 
-  
-  const drawnParticipant = group[0]?.participants[0]?.drawnParticipantId;
+  const participants = await prisma.participant.findMany({
+    where: {
+      groupId: groupId,
+    },
+  });
+
+  const drawnParticipantId = participants[0].drawnParticipantId;
+
+  const drawnParticipantName = await prisma.participant.findUnique({
+    where: {
+      id: drawnParticipantId as string,
+    },
+  });
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-4">
-      <h1 className="text-xl md:text-2xl font-bold mb-4">{group[0]?.name}</h1>
+      <h1 className="text-xl md:text-2xl font-bold mb-4">{group?.name}</h1>
       <Card className="min-w-full md:min-w-md">
         <CardContent>
           <CardContent className="mb-8">
@@ -32,9 +42,9 @@ export default async function GroupsPage({
               Participantes
             </h2>
             <ul className="space-y-2">
-              {group[0]?.participants.map((participant) => (
-                <li key={participant.id} className="border-b">
-                  {participant.name}
+              {participants.map((p) => (
+                <li key={p.id} className="border-b">
+                  {p.name}
                 </li>
               ))}
             </ul>
@@ -42,12 +52,7 @@ export default async function GroupsPage({
           <CardFooter>
             <TextRevealCard
               text="Passe o mouse para revelar!"
-              revealText={`
-                ${
-                  group[0]?.participants.find(
-                    (participant) => participant.id === drawnParticipant
-                  )?.name
-                }`}
+              revealText={`${drawnParticipantName?.name}`}
             >
               <TextRevealCardTitle>Você tirou:</TextRevealCardTitle>
             </TextRevealCard>

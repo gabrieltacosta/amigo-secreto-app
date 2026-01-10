@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma"; // Verifique se este arquivo importa do "../s
 import { headers } from "next/headers";
 import { FormData } from "@/components/new-group-form";
 import { nanoid } from "nanoid";
+import { Resend } from "resend";
 
 export const createGroup = async (data: FormData) => {
   const session = await auth.api.getSession({
@@ -104,9 +105,68 @@ export const createGroup = async (data: FormData) => {
       return createdGroup;
     });
 
+    // Fetch participants from DB with their assigned drawnParticipant
+    const dbParticipants = await prisma.participant.findMany({
+      where: { groupId: result.id },
+      include: { drawnParticipant: true },
+    });
+
+    // Send emails (do not fail group creation if emails can't be delivered)
+    const { error: emailError } = await sendEmailToParticipants(
+      dbParticipants,
+      data.group_name
+    );
+
+    if (emailError) {
+      console.error("Erro ao enviar emails ao criar grupo:", emailError);
+      return { success: true, groupId: result.id, emailError: true };
+    }
+
     return { success: true, groupId: result.id };
   } catch (error) {
     console.error("Erro na transação:", error);
     throw new Error("Falha ao criar grupo e sorteio.");
   }
 };
+
+type DbParticipant = {
+  id: string;
+  name: string;
+  email: string | null;
+  drawnParticipant?: { id: string; name: string } | null;
+};
+
+async function sendEmailToParticipants(
+  participants: DbParticipant[],
+  groupName: string
+) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  // Filter out participants without an email address
+  const toSend = participants.filter((p) => p.email && p.email.trim() !== "");
+  if (toSend.length === 0) {
+    console.warn("Nenhum participante com email para enviar.");
+    return { error: null };
+  }
+
+  try {
+    await Promise.all(
+      toSend.map(async (participant) => {
+        const assignedName =
+          participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
+        await resend.emails.send({
+          from: `Amigo Secreto ${groupName} <no-reply@send.hawkdev.cloud>`,
+          to: participant.email as string,
+          subject: `Sorteio de amigo secreto - ${groupName}`,
+          html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
+            O seu amigo secreto é <strong>${assignedName}</strong></p>`,
+        });
+      })
+    );
+
+    return { error: null };
+  } catch (err) {
+    console.error("Erro ao enviar emails:", err);
+    return { error: err instanceof Error ? err.message : String(err) };
+  }
+}

@@ -55,7 +55,7 @@ export default function NewGroupForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       group_name: "",
-      participant: [{ name: name?.split(" ")[0] ?? "", email: email ?? "" }],
+      participant: [{ name: name ?? "", email: email ?? "" }],
     },
   });
 
@@ -67,7 +67,7 @@ export default function NewGroupForm({
   const router = useRouter();
 
   useEffect(() => {
-    const firstName = name?.split(" ")[0] ?? "";
+    const firstName = name ?? "";
     form.setValue("participant.0.name", firstName);
     form.setValue("participant.0.email", email ?? "");
   }, [name, email, form.setValue]);
