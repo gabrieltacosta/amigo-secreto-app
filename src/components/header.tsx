@@ -1,7 +1,7 @@
 import { Gift, UserRound } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import SignOutButton from "./signoutButton";
+import SignOutButton from "./sign-out-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

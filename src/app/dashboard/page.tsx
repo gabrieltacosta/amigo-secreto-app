@@ -1,8 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import ExcludeGroupButton from "@/components/delete-group-button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
@@ -25,6 +22,7 @@ const DashboardPage = async () => {
   return (
     <div className="flex flex-col w-full min-h-dvh p-4 gap-8">
       <h1 className="text-center md:text-2xl">Meus Grupos</h1>
+
       <div className="grid grid-cols-3 gap-4">
         {groups.length === 0 ? (
           <p>Nenhum grupo encontrado.</p>

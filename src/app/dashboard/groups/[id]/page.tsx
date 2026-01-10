@@ -1,3 +1,4 @@
+import DeleteGroupButton from "@/components/delete-group-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   TextRevealCard,
@@ -10,7 +11,7 @@ export default async function GroupPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const groupId = (await params).id;
+  const groupId = (await params).id as string;
 
   const group = await prisma.group.findUnique({
     where: {
@@ -35,7 +36,10 @@ export default async function GroupPage({
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-4">
       <h1 className="text-xl md:text-2xl font-bold mb-4">{group?.name}</h1>
-      <Card className="min-w-full md:min-w-md">
+      <Card className="min-w-full md:min-w-md  relative">
+        <div className="absolute right-3">
+          <DeleteGroupButton groupId={groupId} />
+        </div>
         <CardContent>
           <CardContent className="mb-8">
             <h2 className="text-lg md:text-xl font-semibold mb-4">

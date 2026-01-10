@@ -19,8 +19,8 @@ import { Input } from "./ui/input";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { Mail, Trash2 } from "lucide-react";
-import { useEffect } from "react";
+import { Loader2, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { createGroup } from "@/app/dashboard/groups/new/actions";
@@ -32,7 +32,6 @@ const formSchema = z.object({
   participant: z
     .array(
       z.object({
-        id: z.string().optional(),
         name: z.string().min(1, "Digite o nome do participante").trim(),
         email: z.string().email("Digite um email válido").trim(),
       })
@@ -43,14 +42,14 @@ const formSchema = z.object({
 export type FormData = z.infer<typeof formSchema>;
 
 export default function NewGroupForm({
-  id,
   name,
   email,
 }: {
-  id: string;
   name: string;
   email: string;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -188,8 +187,13 @@ export default function NewGroupForm({
               <Button
                 type="submit"
                 className="flex items-center space-x-2 w-full md:w-auto"
+                disabled={loading}
               >
-                <Mail className="h-3 w-3" /> Criar grupo e enviar emails
+                {loading ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  "Criar grupo e enviar emails"
+                )}
               </Button>
             </div>
           </form>
