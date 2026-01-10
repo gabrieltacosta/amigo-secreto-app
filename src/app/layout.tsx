@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Amigo Secreto",
   description:
     "Aplicação para sortear amigos secretos de forma simples e divertida.",
+  icons: "/gift.png",
 };
 
 export default function RootLayout({
