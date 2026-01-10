@@ -8,7 +8,7 @@ import prisma from "@/lib/prisma";
 export default async function GroupPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const groupId = (await params).id;
 
