@@ -150,6 +150,7 @@ export const TextRevealCard = ({
           style={{
             width: "100%",
           }}
+          initial={{ opacity: 0, clipPath: `inset(0 100% 0 0)` }}
           animate={
             isMouseOver
               ? {
@@ -157,6 +158,7 @@ export const TextRevealCard = ({
                   clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
                 }
               : {
+                  opacity: 0,
                   clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
                 }
           }
