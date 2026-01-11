@@ -81,8 +81,10 @@ export default function NewGroupForm({
       form.reset();
       toast.success("Grupo criado com sucesso! Emails enviados.");
       router.push("/dashboard");
+      setLoading(false);
     } catch (error) {
       toast.error(`Erro ao criar grupo: ${error}`);
+      setLoading(false);
     }
   };
 

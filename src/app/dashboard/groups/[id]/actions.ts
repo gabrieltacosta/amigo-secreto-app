@@ -28,8 +28,11 @@ export const deleteGroup = async ({ groupIdDelete }: deleteGroupProps) => {
     throw new Error("Não autorizado");
   }
 
-  await prisma.group.delete({ where: { id: groupIdDelete } });
+  try {
+    await prisma.group.delete({ where: { id: groupIdDelete } });
+  } catch (error) {
+    throw new Error(`Erro ao excluir o grupo: ${error}`);
+  }
 
-  // redireciona para dashboard após exclusão
   redirect("/dashboard");
 };
