@@ -58,6 +58,8 @@ export default function NewGroupForm({
     },
   });
 
+  const { setValue } = form;
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "participant",
@@ -67,9 +69,9 @@ export default function NewGroupForm({
 
   useEffect(() => {
     const firstName = name ?? "";
-    form.setValue("participant.0.name", firstName);
-    form.setValue("participant.0.email", email ?? "");
-  }, [name, email, form.setValue]);
+    setValue("participant.0.name", firstName);
+    setValue("participant.0.email", email ?? "");
+  }, [name, email, setValue]);
 
   const onSubmit = async (data: FormData) => {
     try {

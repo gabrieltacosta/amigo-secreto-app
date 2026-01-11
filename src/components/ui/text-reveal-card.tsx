@@ -4,6 +4,78 @@ import { motion } from "motion/react";
 import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
 
+const Stars = () => {
+  const count = 80;
+
+  // Deterministic PRNG so SSR and client renders match exactly
+  const stars = React.useMemo(() => {
+    const mulberry32 = (a: number) => {
+      return () => {
+        let t = (a += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    };
+
+    return Array.from({ length: count }).map((_, i) => {
+      const rand = mulberry32(i + 1);
+      const top = rand() * 100;
+      const left = rand() * 100;
+      const offset = rand() * 4 - 2;
+      const opacity = 0.2 + rand() * 0.8;
+      const duration = rand() * 10 + 20;
+      const targetTop = (rand() * 100 + offset).toFixed(3);
+      const targetLeft = (rand() * 100 + offset).toFixed(3);
+
+      return {
+        top: top.toFixed(3),
+        left: left.toFixed(3),
+        offset: offset.toFixed(3),
+        opacity: Number(opacity.toFixed(3)),
+        duration: Number(duration.toFixed(3)),
+        targetTop,
+        targetLeft,
+      };
+    });
+  }, []);
+
+  return (
+    <div className="absolute inset-0">
+      {stars.map((s, i) => (
+        <motion.span
+          key={`star-${i}`}
+          animate={{
+            top: `calc(${s.targetTop}% + ${s.offset}px)`,
+            left: `calc(${s.targetLeft}% + ${s.offset}px)`,
+            opacity: s.opacity,
+            scale: [1, 1.2, 0],
+          }}
+          transition={{
+            duration: s.duration,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{
+            position: "absolute",
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            width: `2px`,
+            height: `2px`,
+            backgroundColor: "white",
+            borderRadius: "50%",
+            zIndex: 1,
+            opacity: s.opacity,
+          }}
+          className="inline-block"
+        />
+      ))}
+    </div>
+  );
+};
+
+export const MemoizedStars = memo(Stars);
+
 export const TextRevealCard = ({
   text,
   revealText,
@@ -16,7 +88,7 @@ export const TextRevealCard = ({
   className?: string;
 }) => {
   const [widthPercentage, setWidthPercentage] = useState(0);
-  const cardRef = useRef<HTMLDivElement | any>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [left, setLeft] = useState(0);
   const [localWidth, setLocalWidth] = useState(0);
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -30,7 +102,7 @@ export const TextRevealCard = ({
     }
   }, []);
 
-  function mouseMoveHandler(event: any) {
+  function mouseMoveHandler(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
 
     const { clientX } = event;
@@ -146,75 +218,3 @@ export const TextRevealCardDescription = ({
     <p className={twMerge("text-[#a9a9a9] text-sm", className)}>{children}</p>
   );
 };
-
-const Stars = () => {
-  const count = 80;
-
-  // Deterministic PRNG so SSR and client renders match exactly
-  const stars = React.useMemo(() => {
-    const mulberry32 = (a: number) => {
-      return () => {
-        let t = (a += 0x6d2b79f5);
-        t = Math.imul(t ^ (t >>> 15), t | 1);
-        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-      };
-    };
-
-    return Array.from({ length: count }).map((_, i) => {
-      const rand = mulberry32(i + 1);
-      const top = rand() * 100;
-      const left = rand() * 100;
-      const offset = rand() * 4 - 2;
-      const opacity = 0.2 + rand() * 0.8;
-      const duration = rand() * 10 + 20;
-      const targetTop = (rand() * 100 + offset).toFixed(3);
-      const targetLeft = (rand() * 100 + offset).toFixed(3);
-
-      return {
-        top: top.toFixed(3),
-        left: left.toFixed(3),
-        offset: offset.toFixed(3),
-        opacity: Number(opacity.toFixed(3)),
-        duration: Number(duration.toFixed(3)),
-        targetTop,
-        targetLeft,
-      };
-    });
-  }, []);
-
-  return (
-    <div className="absolute inset-0">
-      {stars.map((s, i) => (
-        <motion.span
-          key={`star-${i}`}
-          animate={{
-            top: `calc(${s.targetTop}% + ${s.offset}px)`,
-            left: `calc(${s.targetLeft}% + ${s.offset}px)`,
-            opacity: s.opacity,
-            scale: [1, 1.2, 0],
-          }}
-          transition={{
-            duration: s.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            position: "absolute",
-            top: `${s.top}%`,
-            left: `${s.left}%`,
-            width: `2px`,
-            height: `2px`,
-            backgroundColor: "white",
-            borderRadius: "50%",
-            zIndex: 1,
-            opacity: s.opacity,
-          }}
-          className="inline-block"
-        />
-      ))}
-    </div>
-  );
-};
-
-export const MemoizedStars = memo(Stars);

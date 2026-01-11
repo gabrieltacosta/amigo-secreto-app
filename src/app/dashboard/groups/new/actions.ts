@@ -112,15 +112,15 @@ export const createGroup = async (data: FormData) => {
     });
 
     // Send emails (do not fail group creation if emails can't be delivered)
-    // const { error: emailError } = await sendEmailToParticipants(
-    //   dbParticipants,
-    //   data.group_name
-    // );
+    const { error: emailError } = await sendEmailToParticipants(
+      dbParticipants,
+      data.group_name
+    );
 
-    // if (emailError) {
-    //   console.error("Erro ao enviar emails ao criar grupo:", emailError);
-    //   return { success: true, groupId: result.id, emailError: true };
-    // }
+    if (emailError) {
+      console.error("Erro ao enviar emails ao criar grupo:", emailError);
+      return { success: true, groupId: result.id, emailError: true };
+    }
 
     return { success: true, groupId: result.id };
   } catch (error) {
