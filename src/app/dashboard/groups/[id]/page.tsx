@@ -36,7 +36,7 @@ export default async function GroupPage({
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-4">
       <h1 className="text-xl md:text-2xl font-bold mb-4">{group?.name}</h1>
-      <Card className="min-w-full md:min-w-md  relative">
+      <Card className="max-w-xs md:max-w-2xl relative">
         <div className="absolute right-3">
           <DeleteGroupButton groupId={groupId} />
         </div>
@@ -58,7 +58,7 @@ export default async function GroupPage({
               text="Passe o mouse para revelar!"
               revealText={`${drawnParticipantName?.name}`}
             >
-              <TextRevealCardTitle>Você tirou:</TextRevealCardTitle>
+              <TextRevealCardTitle className="text-sm md:text-base">Você tirou:</TextRevealCardTitle>
             </TextRevealCard>
           </CardFooter>
         </CardContent>
