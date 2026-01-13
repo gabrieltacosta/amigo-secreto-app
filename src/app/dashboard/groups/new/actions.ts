@@ -150,19 +150,18 @@ async function sendEmailToParticipants(
   }
 
   try {
-    await Promise.all(
-      toSend.map(async (participant) => {
-        const assignedName =
-          participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
-        await resend.emails.send({
-          from: `Amigo Secreto ${groupName} <no-reply@send.hawkdev.cloud>`,
-          to: participant.email as string,
-          subject: `Sorteio de amigo secreto - ${groupName}`,
-          html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
-            O seu amigo secreto é <strong>${assignedName}</strong></p>`,
-        });
-      })
-    );
+    // Envia os e-mails sequencialmente (em fila) para evitar sobrecarga e rate limiting
+    for (const participant of toSend) {
+      const assignedName =
+        participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
+      await resend.emails.send({
+        from: `Amigo Secreto ${groupName} <no-reply@send.hawkdev.cloud>`,
+        to: participant.email as string,
+        subject: `Sorteio de amigo secreto - ${groupName}`,
+        html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
+          O seu amigo secreto é <strong>${assignedName}</strong></p>`,
+      });
+    }
 
     return { error: null };
   } catch (err) {
