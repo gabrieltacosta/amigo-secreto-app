@@ -299,9 +299,9 @@ export default function SignUp() {
       </CardContent>
       <CardFooter>
         <div className="flex justify-center w-full border-t py-4">
-          <p className="text-center text-xs text-neutral-500">
+          <span className="text-center text-xs text-neutral-500">
             Protegido por <span className="text-orange-400">HawkDev.</span>
-          </p>
+          </span>
         </div>
       </CardFooter>
     </Card>

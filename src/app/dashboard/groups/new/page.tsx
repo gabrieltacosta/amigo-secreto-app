@@ -9,7 +9,7 @@ export default async function NewGroupPage() {
 
   const loggedUser = {
     id: session?.user?.id as string,
-    name: session?.user?.name as string,
+    name: session?.user?.name.split(" ")[0] as string,
     email: session?.user?.email as string,
   };
 
