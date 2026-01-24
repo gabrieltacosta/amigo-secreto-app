@@ -155,7 +155,7 @@ async function sendEmailToParticipants(
       const assignedName =
         participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
       await resend.emails.send({
-        from: `Amigo Secreto ${groupName} <no-reply@send.hawkdev.cloud>`,
+        from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
         to: participant.email as string,
         subject: `Sorteio de amigo secreto - ${groupName}`,
         html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />

@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose
 } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -52,18 +53,22 @@ export default function Header() {
                     <span> Olá, {session?.user.name}</span>
                   </SheetTitle>
                 </SheetHeader>
-                <Button asChild variant="outline">
-                  <Link
-                    href={"/dashboard"}
-                    className="text-foreground text-sm flex gap-2 items-center"
-                  >
-                    <UserRound className="w-4 h-4" />
-                    Meus Grupos
-                  </Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href={"/dashboard/groups/new"}>Novo Grupo</Link>
-                </Button>
+                <SheetClose asChild>
+                  <Button asChild variant="outline">
+                    <Link
+                      href={"/dashboard"}
+                      className="text-foreground text-sm flex gap-2 items-center"
+                    >
+                      <UserRound className="w-4 h-4" />
+                      Meus Grupos
+                    </Link>
+                  </Button>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Button asChild variant="outline">
+                    <Link href={"/dashboard/groups/new"}>Novo Grupo</Link>
+                  </Button>
+                </SheetClose>
                 <SignOutButton />
               </SheetContent>
             </Sheet>

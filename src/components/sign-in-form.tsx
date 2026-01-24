@@ -64,9 +64,13 @@ export default function SignIn() {
           toast.success("Login realizado com sucesso!");
           router.push("/dashboard");
         },
-        onError: () => {
+        onError: (ctx) => {
           setLoading(false);
-          toast.error("Erro ao realizar login. Verifique suas credenciais.");
+          if (ctx.error.status === 403) {
+            toast("Por favor, verifique seu endereço de e-mail");
+          } else{
+            toast.error("Erro ao realizar login. Verifique suas credenciais.");
+          }
         },
       }
     );
