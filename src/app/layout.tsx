@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
   weight: ["400", "700"],
@@ -30,6 +31,7 @@ export default function RootLayout({
           {children}
         </div>
         <Toaster richColors position="top-right" />
+        <SpeedInsights />
       </body>
     </html>
   );
