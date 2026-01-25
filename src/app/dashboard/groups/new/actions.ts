@@ -154,7 +154,7 @@ async function sendEmailToParticipants(
     const assignedName = participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
     
     return {
-      from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+      from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_NAME}>`,
       to: participant.email as string,
       subject: `Sorteio de amigo secreto - ${groupName}`,
       html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
