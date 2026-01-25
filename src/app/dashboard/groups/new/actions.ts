@@ -142,30 +142,40 @@ async function sendEmailToParticipants(
 ) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  // Filter out participants without an email address
+  // 1. Filtra participantes válidos
   const toSend = participants.filter((p) => p.email && p.email.trim() !== "");
+  
   if (toSend.length === 0) {
-    console.warn("Nenhum participante com email para enviar.");
-    return { error: null };
+    return { error: "Nenhum participante com email válido." };
   }
 
+  // 2. Transforma a lista no formato que o Resend Batch espera
+  const batchPayload = toSend.map((participant) => {
+    const assignedName = participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
+    
+    return {
+      from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+      to: participant.email as string,
+      subject: `Sorteio de amigo secreto - ${groupName}`,
+      html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
+             O seu amigo secreto é <strong>${assignedName}</strong></p>`,
+    };
+  });
+
   try {
-    // Envia os e-mails sequencialmente (em fila) para evitar sobrecarga e rate limiting
-    for (const participant of toSend) {
-      const assignedName =
-        participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
-      await resend.emails.send({
-        from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-        to: participant.email as string,
-        subject: `Sorteio de amigo secreto - ${groupName}`,
-        html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
-          O seu amigo secreto é <strong>${assignedName}</strong></p>`,
-      });
+    // 3. Envia em lotes (Batch)
+    // O Resend aceita até 100 por chamada. 
+    // Se você tiver mais de 100, precisará dividir o array 'batchPayload'.
+    const { data, error } = await resend.batch.send(batchPayload);
+
+    if (error) {
+      console.error("Erro no Resend Batch:", error);
+      return { error: error.message };
     }
 
-    return { error: null };
+    return { error: null, data };
   } catch (err) {
-    console.error("Erro ao enviar emails:", err);
+    console.error("Erro inesperado ao enviar emails:", err);
     return { error: err instanceof Error ? err.message : String(err) };
   }
 }
