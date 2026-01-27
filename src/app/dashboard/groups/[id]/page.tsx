@@ -55,7 +55,7 @@ export default async function GroupPage({
           </CardContent>
           <CardFooter>
             <TextRevealCard
-              text="Passe o mouse para revelar!"
+              text="Deslize para revelar!"
               revealText={`${drawnParticipantName?.name}`}
             >
               <TextRevealCardTitle className="text-sm md:text-base">Você tirou:</TextRevealCardTitle>
