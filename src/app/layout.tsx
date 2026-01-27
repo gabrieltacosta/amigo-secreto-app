@@ -10,11 +10,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Amigo Secreto",
-  description:
-    "Aplicação para sortear amigos secretos de forma simples e divertida.",
-  icons: "/gift.png",
+
+export const metadata = {
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
+  title: {
+    default: "Amigo Secreto Online",
+    template: "%s | Amigo Secreto Online",
+  },
+  description: "Organize sorteios de amigo secreto online.",
 };
 
 export default function RootLayout({

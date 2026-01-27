@@ -13,6 +13,19 @@ import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Amigo Secreto Online | HawkDev",
+  description: "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
+  openGraph: {
+    title: "Amigo Secreto Online | HawkDev",
+    description: "Organize seu amigo secreto em poucos cliques.",
+    url: `${process.env.NEXT_PUBLIC_APP_URL}`,
+    siteName: "Amigo Secreto",
+    images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
+    type: "website",
+  },
+};
+
 export default async function Home() {
   const session = await auth.api.getSession({
     headers: await headers()
