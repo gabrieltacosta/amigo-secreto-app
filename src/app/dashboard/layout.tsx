@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -17,9 +18,16 @@ export default async function RootLayout({
   }
 
   return (
-    <>
-      <Header />
-      {children}
-    </>
+    <div className="flex w-full flex-col min-h-dvh">
+      <div className="flex flex-col">
+        <Header />
+      </div>
+      <div className="flex-1 flex-col">
+        {children}
+      </div>
+      <div className="flex flex-col">
+        <Footer />
+      </div>
+    </div>
   );
 }

@@ -7,13 +7,13 @@ import { useRouter } from "next/navigation";
 
 const SignOutButton = () => {
   const router = useRouter();
-  
+
   const handleSignOut = async () => {
     await signOut({
       fetchOptions: {
         onSuccess: () => {
           toast.success("Deslogado com sucesso.");
-          router.push("/login");
+          router.push("/");
         },
         onError: () => {
           toast.error("Erro ao deslogar. Tente novamente.");

@@ -19,7 +19,7 @@ const DashboardPage = async () => {
   });
 
   return (
-    <div className="flex flex-col w-full min-h-dvh p-4 gap-8">
+    <div className="flex flex-col w-full p-4 gap-8">
       <h1 className="text-center sm:text-2xl">Meus Grupos</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

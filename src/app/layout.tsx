@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+
 const inter = Inter({
   weight: ["400", "700"],
   subsets: ["latin"],
