@@ -61,8 +61,8 @@ export default async function PostPage({
       </div>
       <div className="flex-1 flex-col">
         <div className="w-full h-full flex flex-col justify-center items-center p-4">
-          <h1 className="text-xl md:text-2xl font-bold mb-4">Sorteio do amigo secreto do "{group?.name}"</h1>
-          <Card className="max-w-xs md:max-w-2xl">
+          <h1 className="text-xl md:text-2xl font-bold mb-4">Sorteio do amigo secreto do grupo "{group?.name}"</h1>
+          <Card className="max-w-sm md:max-w-2xl">
             <CardContent>
               <CardContent className="mb-8">
                 <p className="text-lg md:text-xl font-semibold mb-4">

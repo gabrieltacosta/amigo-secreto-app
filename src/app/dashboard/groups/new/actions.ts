@@ -6,6 +6,8 @@ import { headers } from "next/headers";
 import { FormData } from "@/components/new-group-form";
 import { nanoid } from "nanoid";
 import { Resend } from "resend";
+import { render } from "@react-email/render";
+import SecretFriendEmail from "@/components/emails/secret-friend";
 
 export const createGroup = async (data: FormData) => {
   const session = await auth.api.getSession({
@@ -152,29 +154,35 @@ async function sendEmailToParticipants(
     return { error: "Nenhum participante com email válido." };
   }
 
-  // 2. Transforma a lista no formato que o Resend Batch espera
-  const batchPayload = toSend.map((participant) => {
-    const assignedId = participant.drawnParticipant?.id;
-    // const assignedName =
-    //   participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
+  // 2. Transforma a lista no formato que o Resend Batch espera, renderizando o componente de e-mail
+  const batchPayload = await Promise.all(
+    toSend.map(async (participant) => {
+      const assignedId = participant.drawnParticipant?.id;
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+      const baseUrl =
+        process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
-    // friendId na URL será o ID do amigo sorteado
-    const revealUrl = assignedId
-      ? `${baseUrl}/group/${groupId}/friend/${assignedId}`
-      : `${baseUrl}`;
+      // friendId na URL será o ID do amigo sorteado
+      const revealUrl = assignedId
+        ? `${baseUrl}/group/${groupId}/friend/${assignedId}`
+        : `${baseUrl}`;
 
-    return {
-      from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-      to: participant.email as string,
-      subject: `Sorteio de amigo secreto - ${groupName}`,
-      html: `<p>Você está participando do amigo secreto do grupo "<strong>${groupName}</strong>".<br /><br />
-              Clique no link abaixo para revelar quem é o seu Amigo Secreto:<br /><br />
-              <a href="${revealUrl}">Ver meu Amigo Secreto</a></p>`
-    };
-  });
+      const html = await render(
+        SecretFriendEmail({
+          participantName: participant.name,
+          groupName,
+          revealUrl,
+        })
+      );
+
+      return {
+        from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+        to: participant.email as string,
+        subject: `Sorteio de amigo secreto - ${groupName}`,
+        html,
+      };
+    })
+  );
 
   try {
     // 3. Envia em lotes (Batch)

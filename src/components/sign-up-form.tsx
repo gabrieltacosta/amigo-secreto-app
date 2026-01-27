@@ -108,7 +108,7 @@ export default function SignUp() {
         onSuccess: async () => {
           setLoading(false);
           toast.success("Conta criada com sucesso!");
-          router.push("/login");
+          router.push("/");
         },
       },
     });
