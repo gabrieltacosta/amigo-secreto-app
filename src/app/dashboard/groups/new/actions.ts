@@ -22,6 +22,7 @@ export const createGroup = async (data: FormData) => {
     );
   }
 
+
   // Gera IDs manuais para controle do sorteio em memória
   const participantsWithId = data.participant.map((p) => ({
     id: nanoid(),
@@ -114,7 +115,8 @@ export const createGroup = async (data: FormData) => {
     // Send emails (do not fail group creation if emails can't be delivered)
     const { error: emailError } = await sendEmailToParticipants(
       dbParticipants,
-      data.group_name
+      data.group_name,
+      result.id
     );
 
     if (emailError) {
@@ -138,7 +140,8 @@ type DbParticipant = {
 
 async function sendEmailToParticipants(
   participants: DbParticipant[],
-  groupName: string
+  groupName: string,
+  groupId: string
 ) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -151,14 +154,25 @@ async function sendEmailToParticipants(
 
   // 2. Transforma a lista no formato que o Resend Batch espera
   const batchPayload = toSend.map((participant) => {
-    const assignedName = participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
-    
+    const assignedId = participant.drawnParticipant?.id;
+    // const assignedName =
+    //   participant.drawnParticipant?.name ?? "Amigo secreto não encontrado";
+
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+    // friendId na URL será o ID do amigo sorteado
+    const revealUrl = assignedId
+      ? `${baseUrl}/group/${groupId}/friend/${assignedId}`
+      : `${baseUrl}`;
+
     return {
       from: `Amigo Secreto ${groupName} <${process.env.EMAIL_SENDER_ADDRESS}>`,
       to: participant.email as string,
       subject: `Sorteio de amigo secreto - ${groupName}`,
-      html: `<p>Você está participando do amigo secreto do grupo "${groupName}".<br /><br />
-             O seu amigo secreto é <strong>${assignedName}</strong></p>`,
+      html: `<p>Você está participando do amigo secreto do grupo "<strong>${groupName}</strong>".<br /><br />
+              Clique no link abaixo para revelar quem é o seu Amigo Secreto:<br /><br />
+              <a href="${revealUrl}">Ver meu Amigo Secreto</a></p>`
     };
   });
 

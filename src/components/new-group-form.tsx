@@ -79,6 +79,7 @@ export default function NewGroupForm({
         toast.error("Adicione pelo menos 3 participantes para criar o grupo.");
         return;
       }
+      setLoading(true)
       await createGroup(data);
       form.reset();
       toast.success("Grupo criado com sucesso! Emails enviados.");

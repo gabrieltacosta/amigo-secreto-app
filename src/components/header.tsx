@@ -33,27 +33,49 @@ export default function Header() {
               Amigo <span className="font-thin">Secreto</span>
             </span>
           </Link>
-          {isMobile ? (
-            <Sheet>
-              <SheetTrigger>
-                <MenuIcon />
-              </SheetTrigger>
-              <SheetContent className="p-4">
-                <SheetHeader>
-                  <SheetTitle className="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarImage src={session?.user.image as string} />
-                      <AvatarFallback>
-                        {session?.user.name
-                          ?.split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span> Olá, {session?.user.name}</span>
-                  </SheetTitle>
-                </SheetHeader>
-                <SheetClose asChild>
+          {!session ? <Button variant={"outline"} asChild><Link href={"/"}>Home</Link></Button> :
+            <>
+              {isMobile ? (
+                <Sheet>
+                  <SheetTrigger>
+                    <MenuIcon />
+                  </SheetTrigger>
+                  <SheetContent className="p-4">
+                    <SheetHeader>
+                      <SheetTitle className="flex items-center gap-4">
+                        <Avatar>
+                          <AvatarImage src={session?.user.image as string} />
+                          <AvatarFallback>
+                            {session?.user.name
+                              ?.split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span> Olá, {session?.user.name}</span>
+                      </SheetTitle>
+                    </SheetHeader>
+                    <SheetClose asChild>
+                      <Button asChild variant="outline">
+                        <Link
+                          href={"/dashboard"}
+                          className="text-foreground text-sm flex gap-2 items-center"
+                        >
+                          <UserRound className="w-4 h-4" />
+                          Meus Grupos
+                        </Link>
+                      </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Button asChild variant="outline">
+                        <Link href={"/dashboard/groups/new"}>Novo Grupo</Link>
+                      </Button>
+                    </SheetClose>
+                    <SignOutButton />
+                  </SheetContent>
+                </Sheet>
+              ) : (
+                <nav className="flex items-center space-x-4">
                   <Button asChild variant="outline">
                     <Link
                       href={"/dashboard"}
@@ -63,42 +85,24 @@ export default function Header() {
                       Meus Grupos
                     </Link>
                   </Button>
-                </SheetClose>
-                <SheetClose asChild>
                   <Button asChild variant="outline">
                     <Link href={"/dashboard/groups/new"}>Novo Grupo</Link>
                   </Button>
-                </SheetClose>
-                <SignOutButton />
-              </SheetContent>
-            </Sheet>
-          ) : (
-            <nav className="flex items-center space-x-4">
-              <Button asChild variant="outline">
-                <Link
-                  href={"/dashboard"}
-                  className="text-foreground text-sm flex gap-2 items-center"
-                >
-                  <UserRound className="w-4 h-4" />
-                  Meus Grupos
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href={"/dashboard/groups/new"}>Novo Grupo</Link>
-              </Button>
-              <Avatar>
-                <AvatarImage src={session?.user.image as string} />
-                <AvatarFallback>
-                  {session?.user.name
-                    ?.split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <span> Olá, {session?.user.name}</span>
-              <SignOutButton />
-            </nav>
-          )}
+                  <Avatar>
+                    <AvatarImage src={session?.user.image as string} />
+                    <AvatarFallback>
+                      {session?.user.name
+                        ?.split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span> Olá, {session?.user.name}</span>
+                  <SignOutButton />
+                </nav>
+              )}
+            </>
+          }
         </div>
       </div>
     </header>
