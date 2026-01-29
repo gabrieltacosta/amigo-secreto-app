@@ -27,7 +27,7 @@ const DashboardPage = async () => {
           <p>Nenhum grupo encontrado.</p>
         ) : (
           groups.map((group) => (
-            <Link href={`/dashboard/groups/${group.id}`} key={group.id}>
+            <Link href={`/dashboard/groups/${group.id}?created=true`} key={group.id}>
               <Card className="mb-4">
                 <CardContent>
                   <h2 className="text-lg font-semibold">{group.name}</h2>

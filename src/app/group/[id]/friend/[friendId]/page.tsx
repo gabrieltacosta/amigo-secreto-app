@@ -1,3 +1,4 @@
+import { ConfettiTrigger } from "@/components/confetti-trigger";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -27,17 +28,24 @@ export default async function PostPage({
 
   const participants = await prisma.participant.findMany({
     where: {
+      groupId,
+    },
+    orderBy: { name: "asc" },
+  });
+
+  const participant = await prisma.participant.findUnique({
+    where: {
       groupId: groupId,
       drawnParticipantId: friendId
     },
   });
 
   // Se nenhum participante tiver tirado esse amigo, retorna 404
-  if (!participants || participants.length === 0) {
+  if (!participant || participant === null) {
     notFound();
   }
 
-  const drawnParticipantId = participants[0].drawnParticipantId;
+  const drawnParticipantId = participant?.drawnParticipantId;
 
   if (!drawnParticipantId) {
     notFound();
@@ -56,6 +64,7 @@ export default async function PostPage({
 
   return (
     <div className="flex w-full flex-col min-h-dvh">
+      <ConfettiTrigger />
       <div className="flex flex-col">
         <Header />
       </div>
@@ -66,8 +75,18 @@ export default async function PostPage({
             <CardContent>
               <CardContent className="mb-8">
                 <p className="text-lg md:text-xl font-semibold mb-4">
-                  Olá, <span>{participants[0].name}</span>
+                  Olá, <span>{participant.name}</span>
                 </p>
+                <h2 className="text-lg md:text-xl font-semibold mb-4">
+                  Participantes
+                </h2>
+                <ul className="grid grid-cols-2 sm:grid-cols-3">
+                  {participants.map((p) => (
+                    <li key={p.id} className="p-2">
+                      {p.name}
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
               <CardFooter>
                 <TextRevealCard
