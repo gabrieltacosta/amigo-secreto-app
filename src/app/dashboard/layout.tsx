@@ -14,7 +14,7 @@ export default async function RootLayout({
   });
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/");
   }
 
   return (

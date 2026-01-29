@@ -54,6 +54,7 @@ export default function SignIn() {
       {
         email: data.email,
         password: data.password,
+        callbackURL: "/dashboard"
       },
       {
         onRequest: () => {
