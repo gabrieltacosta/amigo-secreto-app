@@ -15,22 +15,12 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Amigo Secreto Online | HawkDev",
-  description: "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
-  openGraph: {
-    title: "Amigo Secreto Online | HawkDev",
-    description: "Organize seu amigo secreto em poucos cliques.",
-    url: `${process.env.NEXT_PUBLIC_APP_URL}`,
-    siteName: "Amigo Secreto",
-    images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
-    type: "website",
-  },
 };
 
 export default async function Home() {
   const session = await auth.api.getSession({
-    headers: await headers()
-  })
-
+    headers: await headers(),
+  });
 
   return (
     <>
@@ -53,21 +43,21 @@ export default async function Home() {
 
             <p className="text-balance text-sm text-muted-foreground sm:text-base">
               Crie grupos, cadastre participantes, faça o sorteio automático e
-              mantenha tudo organizado em um só lugar. Ideal para equipes, amigos,
-              famílias e empresas.
+              mantenha tudo organizado em um só lugar. Ideal para equipes,
+              amigos, famílias e empresas.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
-              {session ? <Button asChild>
-                <Link href={"/dashboard"}>
-                  Entrar no Dashboard
-                </Link></Button> :
+              {session ? (
+                <Button asChild>
+                  <Link href={"/dashboard"}>Entrar no Dashboard</Link>
+                </Button>
+              ) : (
                 <>
                   <SignUpDialog />
                   <SignInDialog />
                 </>
-
-              }
+              )}
 
               <p className="w-full text-xs text-muted-foreground md:w-auto">
                 Sem complicação. Em poucos cliques seu grupo está pronto.
@@ -116,7 +106,9 @@ export default async function Home() {
                     <span className="h-2 w-2 rounded-full bg-emerald-400" />
                     Sorteio pronto em
                   </span>
-                  <span className="font-semibold text-foreground">3 passos</span>
+                  <span className="font-semibold text-foreground">
+                    3 passos
+                  </span>
                 </p>
               </div>
             </div>
@@ -147,8 +139,8 @@ export default async function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
-                Defina o nome do grupo, data do sorteio e valor do presente. Tudo
-                organizado em um só lugar.
+                Defina o nome do grupo, data do sorteio e valor do presente.
+                Tudo organizado em um só lugar.
               </CardContent>
             </Card>
 
@@ -162,8 +154,8 @@ export default async function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
-                Cadastre os participantes com email, evitando repetições e mantendo tudo
-                pronto para o sorteio.
+                Cadastre os participantes com email, evitando repetições e
+                mantendo tudo pronto para o sorteio.
               </CardContent>
             </Card>
 
@@ -177,8 +169,9 @@ export default async function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
-                O app cuida do sorteio automaticamente, garantindo que ninguém se
-                tire e que tudo seja justo e cada participante recebera um email com seu amigo secreto.
+                O app cuida do sorteio automaticamente, garantindo que ninguém
+                se tire e que tudo seja justo e cada participante recebera um
+                email com seu amigo secreto.
               </CardContent>
             </Card>
           </div>
@@ -195,9 +188,8 @@ export default async function Home() {
               Passe o mouse (ou toque) para revelar
             </TextRevealCardTitle>
             <TextRevealCardDescription>
-              Experiência pensada para facilitar a vida de quem organiza o
-              Amigo Secreto — do primeiro cadastro até o dia da troca de
-              presentes.
+              Experiência pensada para facilitar a vida de quem organiza o Amigo
+              Secreto — do primeiro cadastro até o dia da troca de presentes.
             </TextRevealCardDescription>
           </TextRevealCard>
         </section>
@@ -215,16 +207,16 @@ export default async function Home() {
             montar o primeiro grupo em poucos minutos.
           </p>
           <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
-            {session ? <Button asChild>
-              <Link href={"/dashboard"}>
-                Entrar no Dashboard
-              </Link></Button> :
+            {session ? (
+              <Button asChild>
+                <Link href={"/dashboard"}>Entrar no Dashboard</Link>
+              </Button>
+            ) : (
               <>
                 <SignUpDialog />
                 <SignInDialog />
               </>
-
-            }
+            )}
           </div>
         </section>
       </main>

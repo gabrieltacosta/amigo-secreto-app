@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import { SpeedInsights } from '@vercel/speed-insights/next';
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   weight: ["400", "700"],
   subsets: ["latin"],
 });
-
 
 export const metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
@@ -17,7 +15,23 @@ export const metadata = {
     default: "Amigo Secreto Online",
     template: "%s | Amigo Secreto Online",
   },
-  description: "Organize sorteios de amigo secreto online.",
+  description:
+    "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
+  openGraph: {
+    title: "Amigo Secreto Online | HawkDev",
+    description: "Organize seu amigo secreto em poucos cliques.",
+    url: `${process.env.NEXT_PUBLIC_APP_URL}`,
+    siteName: "Amigo Secreto",
+    images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
+    type: "website",
+    canonical: `${process.env.NEXT_PUBLIC_APP_URL}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amigo Secreto Online | HawkDev",
+    description: "Organize seu amigo secreto em poucos cliques.",
+    images: [`${process.env.NEXT_PUBLIC_APP_URL}/gift1.png`],
+  },
 };
 
 export default function RootLayout({
