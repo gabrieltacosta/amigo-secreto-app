@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { deleteGroup } from "@/app/dashboard/groups/[id]/actions";
 
@@ -35,8 +36,14 @@ const DeleteGroupButton = ({ groupId }: ButtonProps) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
-              Continuar
+            <AlertDialogAction asChild>
+              <Button
+                onClick={handleDelete}
+                className="text-white"
+                variant="destructive"
+              >
+                Excluir Grupo
+              </Button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

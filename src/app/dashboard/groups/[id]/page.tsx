@@ -5,17 +5,26 @@ import {
   TextRevealCard,
   TextRevealCardTitle,
 } from "@/components/ui/text-reveal-card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableFooter,
+  TableRow,
+} from "@/components/ui/table";
 import prisma from "@/lib/prisma";
 
 export default async function GroupPage({
   params,
-  searchParams
+  searchParams,
 }: {
-  params: Promise<{ id: string }>,
-  searchParams: Promise<{ created: string }>
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ created: string }>;
 }) {
   const groupId = (await params).id as string;
-  const isCreator = (await searchParams).created === "true"
+  const isCreator = (await searchParams).created === "true";
 
   const group = await prisma.group.findUnique({
     where: {
@@ -37,8 +46,6 @@ export default async function GroupPage({
     },
   });
 
-
-
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-4">
       {isCreator && <ConfettiTrigger />}
@@ -49,23 +56,41 @@ export default async function GroupPage({
         </div>
         <CardContent>
           <CardContent className="mb-8">
-            <h2 className="text-lg md:text-xl font-semibold mb-4">
-              Participantes
-            </h2>
-            <ul className="grid grid-cols-2 sm:grid-cols-3">
-              {participants.map((p) => (
-                <li key={p.id} className="p-2">
-                  {p.name}
-                </li>
-              ))}
-            </ul>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>e-mail</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {participants.map((p) => (
+                  <TableRow key={p.id} className="p-2">
+                    <TableCell>{p.name}</TableCell>
+                    <TableCell className="text-xs md:text-sm lg:text-base">
+                      {p.email}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TableCell>Total</TableCell>
+                  <TableCell className="text-xs md:text-sm lg:text-base">
+                    {participants.length} participantes
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
+            </Table>
           </CardContent>
           <CardFooter>
             <TextRevealCard
               text="Deslize para revelar!"
               revealText={`${drawnParticipantName?.name}`}
             >
-              <TextRevealCardTitle className="text-sm md:text-base">Você tirou:</TextRevealCardTitle>
+              <TextRevealCardTitle className="text-sm md:text-base">
+                Você tirou:
+              </TextRevealCardTitle>
             </TextRevealCard>
           </CardFooter>
         </CardContent>

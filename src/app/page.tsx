@@ -47,7 +47,7 @@ export default async function Home() {
               amigos, famílias e empresas.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-4">
               {session ? (
                 <Button asChild>
                   <Link href={"/dashboard"}>Entrar no Dashboard</Link>
@@ -182,7 +182,7 @@ export default async function Home() {
           <TextRevealCard
             text="Planilhas bagunçadas, papéis perdidos..."
             revealText="Um lugar para organizar seu Amigo Secreto."
-            className="max-w-full border-border/60 bg-card/90 shadow-xl shadow-black/40"
+            className="max-w-full flex flex-col items-center text-center border-border/60 bg-card/90 shadow-xl shadow-black/40"
           >
             <TextRevealCardTitle className="text-sm font-medium text-muted-foreground">
               Passe o mouse (ou toque) para revelar

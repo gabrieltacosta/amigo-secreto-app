@@ -23,14 +23,21 @@ export const metadata = {
     url: `${process.env.NEXT_PUBLIC_APP_URL}`,
     siteName: "Amigo Secreto",
     images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
+    locale: "pt_BR",
     type: "website",
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL}`,
   },
   twitter: {
     card: "summary_large_image",
     title: "Amigo Secreto Online | HawkDev",
     description: "Organize seu amigo secreto em poucos cliques.",
     images: [`${process.env.NEXT_PUBLIC_APP_URL}/gift1.png`],
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_APP_URL,
+    Languages: {
+      "pt-BR": `${process.env.NEXT_PUBLIC_APP_URL}`,
+      "x-default": `${process.env.NEXT_PUBLIC_APP_URL}`,
+    },
   },
 };
 
