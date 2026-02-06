@@ -13,9 +13,6 @@ import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Amigo Secreto Online | HawkDev",
-};
 
 export default async function Home() {
   const session = await auth.api.getSession({

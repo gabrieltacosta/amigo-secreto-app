@@ -15,6 +15,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import prisma from "@/lib/prisma";
+import { Metadata } from "next";
+
+
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const groupId = (await params).id;
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+  });
+
+  return {
+    title: group?.name || "Grupo",
+  };
+}
+
+
 
 export default async function GroupPage({
   params,
@@ -45,6 +65,7 @@ export default async function GroupPage({
       id: drawnParticipantId as string,
     },
   });
+
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-4">

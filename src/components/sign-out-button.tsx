@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Loader2, LogOut } from "lucide-react";
 
 const SignOutButton = () => {
   const router = useRouter();
@@ -34,12 +35,12 @@ const SignOutButton = () => {
 
   return (
     <Button
-      variant={"destructive"}
+      variant={"ghost"}
       size={"sm"}
       onClick={handleSignOut}
       disabled={signouting === true}
     >
-      {signouting ? "Saindo..." : "Sair"}
+      {signouting ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
     </Button>
   );
 };

@@ -1,6 +1,11 @@
 import NewGroupForm from "@/components/new-group-form";
 import { auth } from "@/lib/auth";
+import { Metadata } from "next";
 import { headers } from "next/headers";
+
+export const metadata: Metadata = {
+  title: "Novo Grupo",
+};
 
 export default async function NewGroupPage() {
   const session = await auth.api.getSession({

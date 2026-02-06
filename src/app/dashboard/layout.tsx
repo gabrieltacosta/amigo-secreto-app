@@ -18,16 +18,14 @@ export default async function RootLayout({
   }
 
   return (
-    <div className="flex w-full flex-col min-h-dvh">
+    <>
       <div className="flex flex-col">
         <Header />
       </div>
-      <div className="flex-1 flex-col">
-        {children}
-      </div>
+      <div className="flex-1 flex-col">{children}</div>
       <div className="flex flex-col">
         <Footer />
       </div>
-    </div>
+    </>
   );
 }

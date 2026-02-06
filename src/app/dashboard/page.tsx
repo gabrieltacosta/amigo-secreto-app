@@ -1,8 +1,13 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 
 const DashboardPage = async () => {
   const session = await auth.api.getSession({
@@ -27,14 +32,17 @@ const DashboardPage = async () => {
           <p>Nenhum grupo encontrado.</p>
         ) : (
           groups.map((group) => (
-            <Link href={`/dashboard/groups/${group.id}?created=true`} key={group.id}>
+            <Link
+              href={`/dashboard/groups/${group.id}?created=true`}
+              key={group.id}
+            >
               <Card className="mb-4">
                 <CardContent>
                   <h2 className="text-lg font-semibold">{group.name}</h2>
                 </CardContent>
                 <CardFooter>
                   <span className="text-xs font-thin">
-                    Criado em {" "}
+                    Criado em{" "}
                     {new Date(group.createdAt).toLocaleDateString("pt-BR", {
                       day: "2-digit",
                       month: "long",

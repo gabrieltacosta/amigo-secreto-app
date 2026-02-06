@@ -12,23 +12,23 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
   title: {
-    default: "Amigo Secreto Online",
-    template: "%s | Amigo Secreto Online",
+    default: "Amigo Secreto Simples - HawkDev",
+    template: "%s | Amigo Secreto Simples - HawkDev",
   },
   description:
     "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
   openGraph: {
-    title: "Amigo Secreto Online | HawkDev",
+    title: "Amigo Secreto Simples | HawkDev",
     description: "Organize seu amigo secreto em poucos cliques.",
     url: `${process.env.NEXT_PUBLIC_APP_URL}`,
-    siteName: "Amigo Secreto",
+    siteName: "Amigo Secreto Simples",
     images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amigo Secreto Online | HawkDev",
+    title: "Amigo Secreto Simples | HawkDev",
     description: "Organize seu amigo secreto em poucos cliques.",
     images: [`${process.env.NEXT_PUBLIC_APP_URL}/gift1.png`],
   },
