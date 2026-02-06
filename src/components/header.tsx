@@ -30,7 +30,7 @@ export default function Header() {
           >
             <Gift className="h-6 w-6 text-red-400" />
             <span>
-              Amigo <span className="font-thin">Secreto</span>
+              Amigo <span className="font-thin">Secreto Simples</span>
             </span>
           </Link>
           {!session ? <Button variant={"outline"} asChild><Link href={"/"}>Home</Link></Button> :

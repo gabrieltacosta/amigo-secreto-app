@@ -87,6 +87,7 @@ export default async function GroupPage({
             <TextRevealCard
               text="Deslize para revelar!"
               revealText={`${drawnParticipantName?.name}`}
+              className="max-w-full flex flex-col items-center text-center border-border/60 bg-card/90 shadow-xl shadow-black/40"
             >
               <TextRevealCardTitle className="text-sm md:text-base">
                 Você tirou:
