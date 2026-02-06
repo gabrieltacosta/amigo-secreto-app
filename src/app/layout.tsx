@@ -9,7 +9,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
   title: {
     default: "Amigo Secreto Online",
@@ -34,7 +34,7 @@ export const metadata = {
   },
   alternates: {
     canonical: process.env.NEXT_PUBLIC_APP_URL,
-    Languages: {
+    languages: {
       "pt-BR": `${process.env.NEXT_PUBLIC_APP_URL}`,
       "x-default": `${process.env.NEXT_PUBLIC_APP_URL}`,
     },
