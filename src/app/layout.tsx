@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({
   weight: ["400", "700"],
@@ -47,16 +48,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased dark`}
+        className={`${inter.className} antialiased`}
         cz-shortcut-listen="true"
       >
-        <div className="flex flex-col container mx-auto min-h-dvh p-4">
-          {children}
-        </div>
-        <Toaster richColors position="top-right" />
-        <SpeedInsights />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col container mx-auto min-h-dvh p-4">
+            {children}
+          </div>
+          <Toaster richColors position="top-right" />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

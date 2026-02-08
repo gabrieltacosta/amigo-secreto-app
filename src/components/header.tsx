@@ -15,14 +15,12 @@ import {
 } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { usePathname } from "next/navigation";
 import NavLink from "./navlink";
 
 export default function Header() {
   const isMobile = useIsMobile();
   const { data: session } = authClient.useSession();
-  const pathName = usePathname();
-  const isActive = pathName
+
 
   return (
     <header className="border-b">

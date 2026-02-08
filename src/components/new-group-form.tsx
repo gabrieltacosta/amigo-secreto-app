@@ -34,7 +34,7 @@ const formSchema = z.object({
       z.object({
         name: z.string().min(1, "Digite o nome do participante").trim(),
         email: z.string().email("Digite um email válido").trim(),
-      })
+      }),
     )
     .min(1, "Adicione pelo menos um participante"),
 });
@@ -79,7 +79,7 @@ export default function NewGroupForm({
         toast.error("Adicione pelo menos 3 participantes para criar o grupo.");
         return;
       }
-      setLoading(true)
+      setLoading(true);
       await createGroup(data);
       form.reset();
       toast.success("Grupo criado com sucesso! Emails enviados.");
@@ -169,6 +169,7 @@ export default function NewGroupForm({
                       type="button"
                       variant="link"
                       size={"icon"}
+                      disabled={loading}
                       onClick={() => remove(index)}
                     >
                       <Trash2 className="h-3 w-3 text-red-500/90" />

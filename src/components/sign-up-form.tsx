@@ -91,7 +91,7 @@ export default function SignUp() {
     await signUp.email({
       email: data.email,
       password: data.password,
-      name: `${data.firstName} ${data.lastName}`,
+      name: data.firstName,
       image: image ? await convertImageToBase64(image) : "",
       callbackURL: "/login",
       fetchOptions: {
@@ -148,7 +148,7 @@ export default function SignUp() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-4">
-              <div className="grid grid-cols-2 gap-4">
+
                 <div className="grid gap-2">
                   <FormField
                     control={form.control}
@@ -164,22 +164,6 @@ export default function SignUp() {
                     )}
                   />
                 </div>
-                <div className="grid gap-2">
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Sobrenome</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="de Tal" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
               <div className="grid gap-2">
                 <FormField
                   control={form.control}

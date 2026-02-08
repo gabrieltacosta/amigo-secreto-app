@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModeToggle } from "./toggle-theme";
 
 const Footer = () => {
   return (
@@ -9,13 +10,14 @@ const Footer = () => {
           direitos reservados.
         </span>{" "}
       </div>
-      <div>
+      <div className="flex items-center gap-4">
         <Link
           href="/privacy"
           className="text-xs md:text-sm italic hover:underline ml-2"
         >
           Política de Privacidade
         </Link>
+        <ModeToggle />
       </div>
     </footer>
   );

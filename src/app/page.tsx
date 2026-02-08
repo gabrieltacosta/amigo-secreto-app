@@ -7,12 +7,10 @@ import {
 } from "@/components/ui/text-reveal-card";
 import Footer from "@/components/footer";
 import SignInDialog from "@/components/sign-in-dialog";
-import SignUpDialog from "@/components/sign-up-dialog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -27,7 +25,7 @@ export default async function Home() {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3 w-3" />
-              Organize seu Amigo Secreto em minutos
+              <span>Organize seu Amigo Secreto em minutos</span>
             </div>
 
             <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -41,17 +39,19 @@ export default async function Home() {
             <p className="text-balance text-sm text-muted-foreground sm:text-base">
               Crie grupos, cadastre participantes, faça o sorteio automático e
               mantenha tudo organizado em um só lugar. Ideal para equipes,
-              amigos, famílias e empresas.
+              amigos, famílias e empresas.{" "}
+              <span className="font-semibold text-foreground">
+                100% gratuito, sem cobranças ocultas.
+              </span>
             </p>
 
-            <div className="flex flex-wrap justify-center md:justify-start items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               {session ? (
                 <Button asChild>
                   <Link href={"/dashboard"}>Entrar no Dashboard</Link>
                 </Button>
               ) : (
                 <>
-                  <SignUpDialog />
                   <SignInDialog />
                 </>
               )}
@@ -203,6 +203,13 @@ export default async function Home() {
             Clique em &quot;Começar agora&quot; para criar sua conta gratuita e
             montar o primeiro grupo em poucos minutos.
           </p>
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-4 py-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+              Totalmente grátis. Sem cobranças, sem limitações, sem cartão de
+              crédito.
+            </p>
+          </div>
           <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
             {session ? (
               <Button asChild>
@@ -210,7 +217,6 @@ export default async function Home() {
               </Button>
             ) : (
               <>
-                <SignUpDialog />
                 <SignInDialog />
               </>
             )}
