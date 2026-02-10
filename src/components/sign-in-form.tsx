@@ -69,7 +69,7 @@ export default function SignIn() {
           setLoading(false);
           if (ctx.error.status === 403) {
             toast("Por favor, verifique seu endereço de e-mail");
-          } else{
+          } else {
             toast.error("Erro ao realizar login. Verifique suas credenciais.");
           }
         },
@@ -119,7 +119,7 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel>E-mail</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="fulano@exemplo.com" />
+                        <Input {...field} placeholder="exemplo@email.com" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -205,7 +205,7 @@ export default function SignIn() {
         <div className="flex justify-center w-full border-t py-4">
           <p className="text-center text-xs text-neutral-500">
             feito por{" "}
-              <span className="text-orange-400">HawkDev.</span>
+            <span className="text-orange-400">HawkDev.</span>
           </p>
         </div>
       </CardFooter>

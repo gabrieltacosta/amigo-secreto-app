@@ -19,7 +19,7 @@ export default async function NewGroupPage() {
   };
 
   return (
-    <div className="mt-40">
+    <div className="mt-8">
       <NewGroupForm {...loggedUser} />
     </div>
   );
