@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({
-  weight: ["400", "700"],
+const roboto = Roboto({
   subsets: ["latin"],
+  fallback: ["ui-sans-serif", "system-ui", "-apple-system"]
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
   openGraph: {
     title: "Amigo Secreto Simples | HawkDev",
-    description: "Organize seu amigo secreto em poucos cliques.",
+    description: "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
     url: `${process.env.NEXT_PUBLIC_APP_URL}`,
     siteName: "Amigo Secreto Simples",
     images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}/gift1.png` }],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Amigo Secreto Simples | HawkDev",
-    description: "Organize seu amigo secreto em poucos cliques.",
+    description: "Crie sorteios de amigo secreto online, envie convites por e‑mail e revele os sorteados com segurança.",
     images: [`${process.env.NEXT_PUBLIC_APP_URL}/gift1.png`],
   },
   alternates: {
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased`}
+        className={`${roboto.className} antialiased`}
         cz-shortcut-listen="true"
       >
         <ThemeProvider

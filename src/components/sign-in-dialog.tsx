@@ -9,7 +9,7 @@ const SignInDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg">
+        <Button size="lg" className="animate-bounce">
           Começar agora
           <Gift className="h-4 w-4" />
         </Button>

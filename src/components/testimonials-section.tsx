@@ -11,7 +11,7 @@ const Testimonials = () => {
       </div>
       <div className="mx-auto max-w-7xl h-auto px-6 lg:px-8">
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="text-lg font-semibold leading-8 tracking-tight text-blue-600">
+          <h2 className="text-lg font-semibold leading-8 tracking-tight text-primary">
             Testemunhos
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

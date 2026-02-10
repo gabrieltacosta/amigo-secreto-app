@@ -28,7 +28,7 @@ const TestimonialsCard = ({
             height={40}
           />
           <div>
-            <span className="font-semibold">{name}</span>
+            <span className="font-semibold text-zinc-700">{name}</span>
           </div>
         </CardFooter>
       </CardContent>
