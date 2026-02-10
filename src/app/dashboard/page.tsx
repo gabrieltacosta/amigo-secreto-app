@@ -32,16 +32,13 @@ const DashboardPage = async () => {
           <p>Nenhum grupo encontrado.</p>
         ) : (
           groups.map((group) => (
-            <Link
-              href={`/dashboard/groups/${group.id}`}
-              key={group.id}
-            >
+            <Link href={`/dashboard/groups/${group.id}`} key={group.id}>
               <Card className="mb-4 hover:shadow-xl">
                 <CardContent>
                   <h2 className="text-lg font-semibold">{group.name}</h2>
                 </CardContent>
                 <CardFooter>
-                  <span className="text-xs font-thin">
+                  <span className="text-xs font-normal">
                     Criado em{" "}
                     {new Date(group.createdAt).toLocaleDateString("pt-BR", {
                       day: "2-digit",
