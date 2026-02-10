@@ -36,7 +36,7 @@ const DashboardPage = async () => {
               href={`/dashboard/groups/${group.id}?created=true`}
               key={group.id}
             >
-              <Card className="mb-4">
+              <Card className="mb-4 hover:shadow-xl">
                 <CardContent>
                   <h2 className="text-lg font-semibold">{group.name}</h2>
                 </CardContent>

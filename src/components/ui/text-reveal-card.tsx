@@ -60,9 +60,9 @@ const Stars = () => {
             position: "absolute",
             top: `${s.top}%`,
             left: `${s.left}%`,
-            width: `2px`,
-            height: `2px`,
-            backgroundColor: "white",
+            width: `3px`,
+            height: `3px`,
+            backgroundColor: "red",
             borderRadius: "50%",
             zIndex: 1,
             opacity: s.opacity,
@@ -140,7 +140,7 @@ export const TextRevealCard = ({
       ref={cardRef}
       className={cn(
         "bg-[#1d1c20] border border-white/[0.08] w-[40rem] rounded-lg p-8 relative overflow-hidden",
-        className
+        className,
       )}
     >
       {children}
@@ -185,7 +185,7 @@ export const TextRevealCard = ({
         ></motion.div>
 
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
-          <p className="text-base sm:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-[#323238]">
+          <p className="text-base sm:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-foreground">
             {text}
           </p>
           <MemoizedStars />
@@ -203,7 +203,7 @@ export const TextRevealCardTitle = ({
   className?: string;
 }) => {
   return (
-    <h2 className={twMerge("text-white text-lg mb-2", className)}>
+    <h2 className={twMerge("text-foreground text-lg mb-2", className)}>
       {children}
     </h2>
   );
@@ -217,6 +217,6 @@ export const TextRevealCardDescription = ({
   className?: string;
 }) => {
   return (
-    <p className={twMerge("text-[#a9a9a9] text-sm", className)}>{children}</p>
+    <p className={twMerge("text-foreground text-sm", className)}>{children}</p>
   );
 };
