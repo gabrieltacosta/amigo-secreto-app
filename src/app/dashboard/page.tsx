@@ -33,7 +33,7 @@ const DashboardPage = async () => {
         ) : (
           groups.map((group) => (
             <Link
-              href={`/dashboard/groups/${group.id}?created=true`}
+              href={`/dashboard/groups/${group.id}`}
               key={group.id}
             >
               <Card className="mb-4 hover:shadow-xl">

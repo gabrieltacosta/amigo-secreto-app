@@ -17,9 +17,8 @@ export default function NavLink({
   return (
     <Link
       href={href}
-      className={`${
-        pathname === href ? "underline underline-offset-8" : ""
-      } hover:underline`}
+      className={`${pathname === href ? "underline underline-offset-6" : ""
+        } `}
     >
       {children}
     </Link>

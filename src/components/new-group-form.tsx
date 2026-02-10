@@ -80,14 +80,21 @@ export default function NewGroupForm({
         return;
       }
       setLoading(true);
-      await createGroup(data);
+      const { groupId } = await createGroup(data);
       form.reset();
       toast.success("Grupo criado com sucesso! Emails enviados.");
-      router.push("/dashboard");
+      router.push(`/dashboard/groups/${groupId}?created=true`);
       setLoading(false);
     } catch (error) {
       toast.error(`Erro ao criar grupo: ${error}`);
       setLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Impede o envio do formulário
+      append({ name: "", email: "" }); // Adiciona o novo campo
     }
   };
 
@@ -156,6 +163,7 @@ export default function NewGroupForm({
                             placeholder="Digite o email da pessoa"
                             className="readonly:text-muted-foreground"
                             {...(index === 0 ? { readOnly: true } : {})}
+                            onKeyDown={handleKeyDown}
                           />
                         </FormControl>
                         <FormMessage />
