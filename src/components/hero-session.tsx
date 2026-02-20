@@ -9,7 +9,7 @@ const HeroSession = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  
+
   return (
     <section className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-center">
       <div className="space-y-6">

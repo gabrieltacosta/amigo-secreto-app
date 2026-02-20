@@ -6,8 +6,6 @@ import InstructionSession from "@/components/instruction-session";
 import Testimonials from "@/components/testimonials-section";
 
 export default function Home() {
-
-
   return (
     <>
       <main className="flex flex-1 flex-col gap-12 py-12 md:py-16 lg:py-20">
