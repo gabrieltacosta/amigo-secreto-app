@@ -15,7 +15,7 @@ const Testimonials = () => {
             Testemunhos
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Veja o que estão falando sobre o Migo Secreto
+            Veja o que estão falando sobre o Amigo Secreto Simples
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-cols-4">
