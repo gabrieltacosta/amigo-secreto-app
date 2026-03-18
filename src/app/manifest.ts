@@ -70,8 +70,8 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "screenshots/desktop-full.png",
         sizes: "1920x2765",
         type: "image/png",
-        form_factor: "narrow",
-        label: "Mobile View",
+        form_factor: "wide",
+        label: "Desktop View",
       },
       {
         src: "screenshots/mobile-full.png",
