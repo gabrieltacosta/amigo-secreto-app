@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "cloud.hawkdev.amigo_secreto.twa",
+        "sha256_cert_fingerprints": ["0A:CC:E1:99:3D:47:13:E1:DB:41:50:D0:C3:9E:86:16:40:DD:B1:06:4E:22:1C:0B:AA:42:3D:97:ED:A6:2E:0E"]
+      }
+    }]
