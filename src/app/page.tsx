@@ -5,7 +5,6 @@ import HighlightSession from "@/components/highlight-session";
 import InstructionSession from "@/components/instruction-session";
 import Testimonials from "@/components/testimonials-section";
 
-export const dynamic = "force-static";
 
 export default function Home() {
   return (
